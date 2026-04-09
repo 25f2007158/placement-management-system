@@ -44,6 +44,7 @@ if __name__ == '__main__':  # run this app only when it is invoked (called)
 
 
 
+
 # note:
 # When we run this file then flask will create a proxy object as current_app
 # which we can use later in other files and it will also avoid
