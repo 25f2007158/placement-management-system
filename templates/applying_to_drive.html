@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drive Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+
+        <div class="card p-4 shadow">
+
+            <h3 class="mb-3">Drive Details</h3>
+            <hr>
+
+            <p><strong>Drive Name:</strong> {{ drive.drive_name }}</p>
+            <p><strong>Job Title:</strong> {{ drive.job_title }}</p>
+            <p><strong>Job Description:</strong> {{ drive.job_description }}</p>
+            <p><strong>Salary:</strong> {{ drive.salary }}</p>
+            <p><strong>Location:</strong> {{ drive.location }}</p>
+
+            <div class="d-flex gap-2 mt-3">
+
+                <form action="/applying_to_drive/{{ drive.id }}" method="POST">
+                    <button type="submit" class="btn btn-primary">
+                        Apply
+                    </button>
+                </form>
+
+                <a href="/company_details/{{drive.company_id}}" class="btn btn-outline-primary">
+                    Go Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

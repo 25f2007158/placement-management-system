@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        #form-body {
+            border: 1px solid black;
+            height: 440px;
+            width: 300px;
+            margin: auto;
+            margin-top: 220px;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+        <!-- this is for the main page -->
+        <div id="canvas">
+            <!-- this is for better visibility (will have space on right and left side of the page ) -->
+            <div id="form-body">
+                <h1>Register Form</h1>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Your Email">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
+                    </div>
+                    
+                    <select name="role" class="form-select">
+
+                        <option value="student">student</option>
+                        <option value="company">company</option>
+                    </select>
+
+                    <!-- inbuilt class of bootstrap "text center" -->
+
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary" value="Register">
+                        <br>
+
+                        Already have a account? <a href="/login">Login</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
