@@ -350,28 +350,13 @@ def create_company_profile():
     return render_template("create_company_profile.html")
 @app.route("/analytics")
 def analytics():
+
     students, drives, applications, companies = load_data()
-    funnel = application_funnel(applications)
-    top = top_companies(
-        drives,
-        applications,
-        companies
-    )
-    department = department_wise_applications(
-        students,
-        applications
-    )
-    salary = avg_salary_by_company(
-        drives,
-        companies
-    )
-    jobs = job_title(
-        drives
-    )
-    print(applications.columns)
-    print(applications.dtypes)
-    print(applications.head())
-    monthly = monthly_application_trend(
-        applications
-    )
-    return str(monthly)
+
+    try:
+        monthly = monthly_application_trend(applications)
+        return str(monthly)
+
+    except Exception as e:
+        import traceback
+        return "<pre>" + traceback.format_exc() + "</pre>"
