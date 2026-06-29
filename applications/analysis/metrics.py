@@ -16,7 +16,7 @@ def top_companies(drive,applications,companies): #TOP COMPANIES
     merged=merge1.merge(companies,left_on="company_id",right_on="id")
 
     return merged["name"].value_counts().head(5)
-#
+
 def department_wise_applications(student,applications):#DEPARTMENT-WISE APPLICATION 
     d_W_A=student.merge(applications,left_on="id",right_on="student_id")
     return d_W_A["department"].value_counts()
@@ -25,7 +25,7 @@ def avg_salary_by_company(drive,companies): #AVG SALARY BY COMPANY
     merge=companies.merge(drive,left_on="id",right_on="company_id")
     return {"Average Package":merge.groupby("name")["salary"].mean().sort_values(ascending=False),
             "Highest Package":merge.groupby("name")["salary"].max().sort_values(ascending=False)}
-#
+
 def job_title(drive): #JOB POPULARITY
     return drive["job_title"].value_counts().head(10)
 #
