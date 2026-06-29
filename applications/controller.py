@@ -350,4 +350,5 @@ def create_company_profile():
     return render_template("create_company_profile.html")
 @app.route("/analytics")
 def analytics():
-    return("Analytics working")
+    students, drives, applications, companies = load_data()
+    return("Data loaded")
