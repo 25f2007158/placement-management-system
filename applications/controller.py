@@ -351,4 +351,5 @@ def create_company_profile():
 @app.route("/analytics")
 def analytics():
     students, drives, applications, companies = load_data()
-    return("Data loaded")
+    funnel = application_funnel(applications)
+    return("funnel working")
