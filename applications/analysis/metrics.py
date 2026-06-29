@@ -31,24 +31,11 @@ def job_title(drive): #JOB POPULARITY
 #
 def monthly_application_trend(application):
 
-    if application.empty:
-        return pd.Series(dtype=int)
+    print(application.columns)
+    print(application.head())
 
-    application = application.copy()
-
-    if "applied_at" not in application.columns:
-        return pd.Series(dtype=int)
-
-    application["applied_at"] = pd.to_datetime(
-        application["applied_at"],
-        errors="coerce"
-    )
-
-    application = application.dropna(subset=["applied_at"])
-
-    if application.empty:
-        return pd.Series(dtype=int)
+    application["applied_at"] = pd.to_datetime(application["applied_at"])
 
     application["month"] = application["applied_at"].dt.to_period("M")
 
-    return application.groupby("month").size() 
+    return application.groupby("month").size()
