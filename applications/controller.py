@@ -352,11 +352,24 @@ def create_company_profile():
 def analytics():
 
     students, drives, applications, companies = load_data()
+    print("1")
 
-    try:
-        monthly = monthly_application_trend(applications)
-        return str(monthly)
+    funnel = application_funnel(applications)
+    print("2")
 
-    except Exception as e:
-        import traceback
-        return "<pre>" + traceback.format_exc() + "</pre>"
+    top = top_companies(drives, applications, companies)
+    print("3")
+
+    department = department_wise_applications(students, applications)
+    print("4")
+
+    salary = avg_salary_by_company(drives, companies)
+    print("5")
+
+    jobs = job_title(drives)
+    print("6")
+
+    monthly = monthly_application_trend(applications)
+    print("7")
+
+    return "OK"
