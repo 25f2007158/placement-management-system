@@ -1,6 +1,6 @@
 from .database import db #context of the application is the root directotry
 #no dot:looks in root directory(in my project :MAD-1) 
-# with dot: looks in currect directiory  
+# with dot: looks in currect directory  
 # from application.database : the models.py will think that there is 1 more same folder 
 
 class User(db.Model):
@@ -18,6 +18,7 @@ class Student(db.Model):
     projects= db.Column(db.String(100),nullable=False)
     experience= db.Column(db.String(100),nullable=False)
     applications = db.relationship('Application', backref='student', lazy=True)
+
 class Companies(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

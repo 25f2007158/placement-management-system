@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Placement Portal Application API Documentation
+  description: API design documentation for the PPA system based on Flask routes.
+  version: 1.0.0
+
+paths:
+  /login:
+    post:
+      summary: User Login
+      description: Validates username/password and establishes session roles (Student/Company/Admin).
+      responses:
+        '200':
+          description: Successful login and redirect.
+
+  /register:
+    post:
+      summary: User Registration
+      description: Creates a new record in the User table with role assignment.
+      responses:
+        '201':
+          description: User created and redirected to login.
+
+  /create_drive:
+    post:
+      summary: Create Placement Drive
+      description: Allows an approved company to post a new job drive.
+      responses:
+        '200':
+          description: Drive record created in database.
+
+  /applying_to_drive/{drive_id}:
+    post:
+      summary: Apply to Job
+      parameters:
+        - name: drive_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      description: Submits a student application for a specific drive.
+      responses:
+        '200':
+          description: Application successfully recorded.
+
+  /approve_company/{id}:
+    post:
+      summary: Admin Approval
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      description: Changes company status to 'approved' so they can create drives.
+      responses:
+        '200':
+          description: Company status updated.
+
+  /update_application/{id}:
+    post:
+      summary: Update Application Status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      description: Allows companies to change application status (e.g., Shortlisted, Selected).
+      responses:
+        '200':
+          description: Application status updated.
+
+components:
+  schemas:
+    Drive:
+      type: object
+      properties:
+        id: {type: integer}
+        drive_name: {type: string}
+        job_title: {type: string}
+        salary: {type: integer}
+        location: {type: string}
+        status: {type: string}
+    Application:
+      type: object
+      properties:
+        id: {type: integer}
+        student_id: {type: integer}
+        drive_id: {type: integer}
+        status: {type: string}

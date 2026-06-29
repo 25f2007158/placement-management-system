@@ -9,13 +9,10 @@ def create_app():
     app.secret_key = 'super_secret_unpredictable_key_string'
     app.debug = True
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///database.db'
-
-    db.init_app(app)
-
-    app.app_context().push()  # activates Flask environment manually.
+    db.init_app(app) #connects db to flask app
+    app.app_context().push()  # activates Flask environment manually so db can work
     return app
-
-
+    
 app = create_app()
 
 from applications.controller import *  # written here because we need to define the app first
@@ -26,7 +23,6 @@ from applications.controller import *  # written here because we need to define 
 if __name__ == '__main__':  # run this app only when it is invoked (called)
     with app.app_context():
         db.create_all()
-
         admin = User.query.filter_by(username="admin1").first()
 
         if admin is None:
@@ -39,14 +35,7 @@ if __name__ == '__main__':  # run this app only when it is invoked (called)
             db.session.add(admin)
             db.session.commit()
 
-    app.run()
-
-
-
-
-
-
-
+    app.run() 
 
 
 # note:
