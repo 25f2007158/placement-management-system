@@ -30,12 +30,8 @@ def job_title(drive): #JOB POPULARITY
     return drive["job_title"].value_counts().head(10)
 #
 def monthly_application_trend(application):
-
-    print(application.columns)
-    print(application.head())
+    application = application.copy()
 
     application["applied_at"] = pd.to_datetime(application["applied_at"])
 
-    application["month"] = application["applied_at"].dt.to_period("M")
-
-    return application.groupby("month").size()
+    return application["applied_at"]
