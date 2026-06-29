@@ -365,4 +365,7 @@ def analytics():
         drives,
         companies
     )
-    return str(salary)
+    jobs = job_title(
+        drives
+    )
+    return str(jobs)
