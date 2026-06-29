@@ -352,4 +352,9 @@ def create_company_profile():
 def analytics():
     students, drives, applications, companies = load_data()
     funnel = application_funnel(applications)
-    return("funnel working")
+    top = top_companies(
+        drives,
+        applications,
+        companies
+    )
+    return str(top)
