@@ -357,4 +357,8 @@ def analytics():
         applications,
         companies
     )
-    return str(top)
+    department = department_wise_applications(
+        students,
+        applications
+    )
+    return str(department)
