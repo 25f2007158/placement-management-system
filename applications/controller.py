@@ -361,4 +361,15 @@ def analytics():
         students,
         applications
     )
-    return str(department)
+    salary = avg_salary_by_company(
+        drives,
+        companies
+    )
+
+    jobs = job_title(
+        drives
+    )
+
+    monthly = monthly_application_trend(
+        applications
+    )
