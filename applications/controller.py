@@ -368,4 +368,7 @@ def analytics():
     jobs = job_title(
         drives
     )
-    return str(jobs)
+    monthly = monthly_application_trend(
+        applications
+    )
+    return str(monthly)
