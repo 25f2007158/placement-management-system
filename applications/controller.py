@@ -365,22 +365,4 @@ def analytics():
         drives,
         companies
     )
-
-    jobs = job_title(
-        drives
-    )
-
-    monthly = monthly_application_trend(
-        applications
-    )
-
-    return render_template(
-        "analytics.html",
-
-        funnel=funnel,
-        top=top,
-        department=department,
-        salary=salary,
-        jobs=jobs,
-        monthly=monthly
-    )
+    return str(salary)
