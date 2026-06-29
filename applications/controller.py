@@ -6,6 +6,7 @@ from datetime import datetime
 from applications.analysis.data_loader import load_data
 from applications.analysis.metrics import * 
 from applications.analysis.charts import *
+import traceback
 @app.route("/login",methods=["GET","POST"])
 def login():
     if request.method=="POST":
@@ -325,51 +326,87 @@ def apply_to_drive(drive_id):
 
     return render_template("applying_to_drive.html",drive=drive,company=company,open_drives=open_drives) 
         
-@app.route("/create_company_profile", methods=["GET", "POST"])
-def create_company_profile():
-    u_id = session.get("user_id")
-    if not u_id:
-        return redirect("/login")
-    existing_company = Companies.query.filter_by(user_id=u_id).first()
-    if existing_company:
-        return redirect("/company_dashboard")
-
-    if request.method == "POST":
-        
-        name = request.form.get("name")
-        description = request.form.get("description")
-        new_company = Companies(
-            user_id=u_id,
-            name=name,
-            description=description 
-        )     
-        db.session.add(new_company)
-        db.session.commit()
-        return redirect("/company")
-
-    return render_template("create_company_profile.html")
 @app.route("/analytics")
 def analytics():
+    try:
+        print("STEP 1")
+        students, drives, applications, companies = load_data()
 
-    students, drives, applications, companies = load_data()
-    print("1")
+        print("STEP 2")
+        print("Applications Columns:", applications.columns.tolist())
+        print("Applications Shape:", applications.shape)
+        print(applications.head())
 
-    funnel = application_funnel(applications)
-    print("2")
+        print("STEP 3")
+        funnel = application_funnel(applications)
 
-    top = top_companies(drives, applications, companies)
-    print("3")
+        print("STEP 4")
+        top = top_companies(
+            drives,
+            applications,
+            companies
+        )
 
-    department = department_wise_applications(students, applications)
-    print("4")
+        print("STEP 5")
+        department = department_wise_applications(
+            students,
+            applications
+        )
 
-    salary = avg_salary_by_company(drives, companies)
-    print("5")
+        print("STEP 6")
+        salary = avg_salary_by_company(
+            drives,
+            companies
+        )
 
-    jobs = job_title(drives)
-    print("6")
+        print("STEP 7")
+        jobs = job_title(
+            drives
+        )
 
-    monthly = monthly_application_trend(applications)
-    print("7")
+        print("STEP 8 - BEFORE MONTHLY")
+        monthly = monthly_application_trend(applications)
 
-    return "OK"
+        print("STEP 9 - MONTHLY DONE")
+        print(monthly)
+
+        print("STEP 10")
+        application_chart_funnel(funnel)
+
+        print("STEP 11")
+        top_companies_chart(top)
+
+        print("STEP 12")
+        department_chart(department)
+
+        print("STEP 13")
+        average_salary_chart(
+            salary["Average Package"]
+        )
+
+        print("STEP 14")
+        highest_salary_chart(
+            salary["Highest Package"]
+        )
+
+        print("STEP 15")
+        job_role_chart(jobs)
+
+        print("STEP 16")
+        monthly_trend_chart(monthly)
+
+        print("STEP 17")
+
+        return render_template(
+            "analytics.html",
+            funnel=funnel,
+            top=top,
+            department=department,
+            salary=salary,
+            jobs=jobs,
+            monthly=monthly
+        )
+
+    except Exception:
+        traceback.print_exc()
+        return "<pre>" + traceback.format_exc() + "</pre>", 500
